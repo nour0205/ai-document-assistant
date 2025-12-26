@@ -1,11 +1,13 @@
 from dotenv import load_dotenv
 load_dotenv()
 
+import os
 
-from fastapi import FastAPI
+
+from fastapi import FastAPI , UploadFile, File
 from pydantic import BaseModel
 from .rag import answer_question
-from .data_store import load_document, embed_chunks
+from .data_store import load_document, embed_chunks, reload_document
 
 
 app = FastAPI()
@@ -33,4 +35,26 @@ def ask_question(request: QuestionRequest):
         "question": request.question,
         "answer": answer
     }
+
+UPLOAD_DIR = "uploads"
+
+@app.post("/upload")
+def upload_pdf(file: UploadFile = File(...)):
+    if not file.filename.lower().endswith(".pdf"):
+        return {"error": "Only PDF files are supported"}
+
+    os.makedirs(UPLOAD_DIR, exist_ok=True)
+    file_path = os.path.join(UPLOAD_DIR, file.filename)
+
+    with open(file_path, "wb") as f:
+        f.write(file.file.read())
+
+    reload_document(file_path)
+
+    return {
+        "filename": file.filename,
+        "status": "uploaded and activated"
+    }
+
+
 

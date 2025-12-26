@@ -21,7 +21,8 @@ def answer_question(question: str) -> str:
 
     # 2. Compute similarity scores
     scores = []
-    for chunk, emb in zip(chunks, embeddings):
+    for chunk, emb in zip(data_store.chunks, data_store.embeddings):
+
         score = cosine_similarity(question_embedding, emb)
         scores.append((chunk, score))
 
