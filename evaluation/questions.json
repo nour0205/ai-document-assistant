@@ -1,0 +1,27 @@
+[
+  {
+    "id": "q1",
+    "question": "What is Artificial Intelligence according to the document?",
+    "expected_behavior": "ANSWER"
+  },
+  {
+    "id": "q2",
+    "question": "What are the different types of Artificial Intelligence discussed in the document?",
+    "expected_behavior": "ANSWER"
+  },
+  {
+    "id": "q3",
+    "question": "Explain Weak AI.",
+    "expected_behavior": "ANSWER"
+  },
+  {
+    "id": "q4",
+    "question": "What are the types of Machine Learning?",
+    "expected_behavior": "REFUSE"
+  },
+  {
+    "id": "q5",
+    "question": "What are transformers in AI?",
+    "expected_behavior": "REFUSE"
+  }
+]
